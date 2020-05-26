@@ -44,7 +44,7 @@ const Views = () => {
     <React.Fragment>
       <ViewsDataToolbar/>
       <DataList className="app__data-list" aria-label="">
-      { listItems.map((item, index) => 
+      { listItems.map((item, index) =>
         <DataListItem aria-labelledby="">
           <DataListItemRow>
             <DataListItemCells
