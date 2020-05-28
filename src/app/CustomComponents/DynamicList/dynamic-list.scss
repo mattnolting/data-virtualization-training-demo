@@ -1,0 +1,94 @@
+@import '@app/pf_core.scss';
+$app-c-dynamic-list--breakpoint-map: build-breakpoint-map();
+
+@debug($app-c-dynamic-list--breakpoint-map);
+
+.app-c-dynamic-list {
+  --app-c-dynamic-list--Padding: var(--pf-global--spacer--xs) var(--pf-global--spacer--md);
+  --app-c-dynamic-list--BackgroundColor: var(--pf-global--BackgroundColor--light-300);
+  --app-c-dynamic-list--BorderRadius: var(--pf-global--BorderRadius--lg);
+
+  // Label
+  --app-c-dynamic-list__label--MarginRight: var(--pf-global--spacer--xs);
+  --app-c-dynamic-list__label--FontSize: var(--pf-global--FontSize--sm);
+
+  // Item
+  --app-c-dynamic-list__item--MarginRight: var(--pf-global--spacer--sm);
+  --app-c-dynamic-list__item--FontSize: var(--pf-global--FontSize--sm);
+
+  // List
+  --app-c-dynamic-list--MarginTop: 1px;
+  --app-c-dynamic-list--MarginRight: var(--pf-global--spacer--sm);
+  --app-c-dynamic-list--MarginBottom: 1px;
+
+  // coming soon, margin trim will allow items whose margins collide with their parent container edges to collapse or 'trim' the item margins
+  // margin-trim: all;
+
+  align-items: center;
+  justify-self: start;
+  margin:  var(--app-c-dynamic-list--MarginTop) var(--app-c-dynamic-list--MarginRight) var(--app-c-dynamic-list--MarginBottom) 0;
+}
+
+.app-c-dynamic-list,
+.app-c-dynamic-list__list {
+  display: inline-flex;
+  flex-wrap: wrap;
+}
+
+.app-c-dynamic-list__list {
+  margin-right: var(--app-c-dynamic-list__list--MarginRight);
+}
+
+.app-c-dynamic-list__label {
+  margin-right: var(--app-c-dynamic-list__label--MarginRight);
+  font-size: var(--app-c-dynamic-list__label--FontSize);
+
+  &::after {
+    content: ':';
+  }
+}
+
+.app-c-dynamic-list__item {
+  align-items: center;
+  margin-right: var(--app-c-dynamic-list__item--MarginRight);
+  font-size: var(--app-c-dynamic-list__item--FontSize);
+  white-space: nowrap;
+
+  &:not(:last-child):after {
+    content: '/';
+    margin-left: var(--pf-global--spacer--sm);
+  }
+
+  &:last-child {
+    --app-c-dynamic-list__item--MarginRight: 0;
+  }
+}
+
+
+@each $breakpoint, $breakpoint-value in $app-c-dynamic-list--breakpoint-map {
+  $breakpoint-name: if($breakpoint != "base", -on-#{$breakpoint}, "");
+
+  @include pf-apply-breakpoint($breakpoint, $app-c-dynamic-list--breakpoint-map) {
+    .app-c-dynamic-list.app-m-red#{$breakpoint-name} {
+      background-color: red;
+    }
+
+    .app-c-dynamic-list.app-m-blue#{$breakpoint-name} {
+      background-color: blue;
+    }
+
+    .app-c-dynamic-list.app-m-green#{$breakpoint-name} {
+      background-color: green;
+    }
+
+    .app-c-dynamic-list.app-m-orange#{$breakpoint-name} {
+      background-color: orange;
+    }
+
+    .app-c-dynamic-list.app-m-update#{$breakpoint-name} {
+      border-radius: var(--app-c-dynamic-list--BorderRadius);
+      background-color: var(--app-c-dynamic-list--BackgroundColor);
+      padding: var(--app-c-dynamic-list--Padding);
+    }
+  }
+}
