@@ -104,7 +104,7 @@ const DataPermissionDataToolbar = () => {
           dropdownItems={bulkSelectItems}
         />
       </DataToolbarItem>
-      <DataToolbarToggleGroup breakpoint="xl" toggleIcon={<FilterIcon />}>
+      <DataToolbarToggleGroup breakpoint="2xl" toggleIcon={<FilterIcon />}>
         <DataToolbarGroup variant="filter-group">
           <DataToolbarItem>
             <Dropdown

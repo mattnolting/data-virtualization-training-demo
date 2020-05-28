@@ -1,7 +1,5 @@
 import * as React from 'react';
 import './data-permission-table.scss';
-// import { useState } from 'react';
-// import { useEffect, useState } from 'react';
 import {
   Table,
   TableHeader,
@@ -17,18 +15,9 @@ import {
   textCenter
 } from '@patternfly/react-table';
 
-// import {
-//   scopeColTransformer,
-//   selectable,
-//   cellActions,
-//   emptyCol,
-//   mapProps,
-//   collapsible,
-//   emptyTD,
-//   expandedRow,
-//   parentId,
-//   editable
-// } from './transformers';
+import { DynamicList } from '../CustomComponents/DynamicList/DynamicList';
+import { DynamicListList } from '../CustomComponents/DynamicList/DynamicListList';
+import { DynamicListItem } from '../CustomComponents/DynamicList/DynamicListItem';
 
 import {
   Checkbox,
@@ -237,20 +226,13 @@ class DataPermissionTable extends React.Component {
             'Contact',
             {
               title:
-                <ChipGroup
-                  categoryName="Category"
-                  className="app-m-inline">
-                  <span class="pf-c-chip-group__label" aria-hidden="true" id="pf-random-id-15">Category one</span>
-                  <Chip key="chip" isReadOnly>
-                    test 1
-                  </Chip>
-                  <Chip key="chip" isReadOnly>
-                    test 2
-                  </Chip>
-                  <Chip key="chip" isReadOnly>
-                    test 3
-                  </Chip>
-                </ChipGroup>
+                <DynamicList>
+                  <DynamicListList type="Developer">
+                    <DynamicListItem text="Read" />
+                    <DynamicListItem text="Edit" />
+                    <DynamicListItem text="Delete" />
+                  </DynamicListList>
+                </DynamicList>
             },
             'Date',
             {
@@ -432,32 +414,25 @@ class DataPermissionTable extends React.Component {
           cells: ['parent - 2', 'two', 'three', 'four']
         },
         {
-          parent: 3,
+          parent: 2,
           fullWidth: true,
+          noPadding: true,
+          dataLabel: '',
           cells: [{
-            props: {
-              colSpan: 5,
-              className: 'pf-m-no-padding'
-            },
-            title:
-              <Table
-                aria-label="Nested table"
-                variant={TableVariant.compact}
-
-                rows= {[
-                  ['one', 'two', 'three', 'four', 'five'],
-                  ['one', 'two', 'three', 'four', 'five'],
-                  ['one', 'two', 'three', 'four', 'five']
-                ]}
-                cells = {[
-                  { title: 'Header one cell' },
-                  'second header',
-                  'third header'
-                ]}
-                >
-              </Table>
+            title: NestedTable()
           }]
-        },
+        }
+        //   parent: 3,
+        //   fullWidth: true,
+        //   cells: [{
+        //     props: {
+        //       colSpan: 5,
+        //       className: 'pf-m-no-padding'
+        //     },
+        //     title:
+        //     title: NestedTable()
+        //   }]
+        // },
       ],
       sortBy: {},
       readonlychip: {
@@ -519,22 +494,24 @@ class DataPermissionTable extends React.Component {
   }
 
   actionResolver(rowData, { rowIndex }) {
-    if (rowIndex === 1) {
+    // {this.props.propInQuestion ? <a href="#">link</a> : null}
+    if (rowData.parent) {
       return null;
+    } else {
+      return [
+        {
+          title: 'Some action',
+          onClick: (event, rowId, rowData, extra) =>
+            console.log(`clicked on Some action, on row ${rowId} of type ${rowData.type}`)
+        },
+        {
+          title: <div>Another action</div>,
+          onClick: (event, rowId, rowData, extra) =>
+            console.log(`clicked on Another action, on row ${rowId} of type ${rowData.type}`)
+        },
+      ];
     }
 
-    return [
-      {
-        title: 'Some action',
-        onClick: (event, rowId, rowData, extra) =>
-          console.log(`clicked on Some action, on row ${rowId} of type ${rowData.type}`)
-      },
-      {
-        title: <div>Another action</div>,
-        onClick: (event, rowId, rowData, extra) =>
-          console.log(`clicked on Another action, on row ${rowId} of type ${rowData.type}`)
-      },
-    ];
   }
 
   render() {
@@ -559,5 +536,65 @@ class DataPermissionTable extends React.Component {
     );
   }
 }
+
+// class DataPermissionTable extends React.Component {
+//   constructor(props) {
+//     super(props);
+//     this.state = {
+//       columns: [
+//         {
+//           title: 'Repositories',
+//           transforms: [cellWidth(15), sortable]
+//         },
+//         'Branches',
+//         { title: 'Pull requests' },
+//         'Workspaces',
+//         {
+//           title: 'Last Commit',
+//           transforms: [textCenter],
+//           cellTransforms: [textCenter]
+//         }
+//       ],
+//       rows: [
+//         {
+//           cells: ['one', 'two', 'three', 'four', 'five']
+//         },
+//         {
+//           cells: [
+//             {
+//               title: <div>one - 2</div>,
+//               props: { title: 'hover title', colSpan: 3 }
+//             },
+//             'four - 2',
+//             'five - 2'
+//           ]
+//         },
+//         {
+//           cells: [
+//             'one - 3',
+//             'two - 3',
+//             'three - 3',
+//             'four - 3',
+//             {
+//               title: 'five - 3 (not centered)',
+//               props: { textCenter: false }
+//             }
+//           ]
+//         }
+//       ]
+//     };
+//   }
+
+//   render() {
+//     const { columns, rows } = this.state;
+
+//     return (
+//       <Table aria-label="Simple Table" cells={columns} rows={rows}>
+//         <TableHeader />
+//         <TableBody />
+//       </Table>
+//     );
+//   }
+// }
 
 export { DataPermissionTable };
