@@ -1,0 +1,29 @@
+@import '@app/pf-core.scss';
+
+// override default settings
+// the magic override
+.pf-c-table[class*="pf-m-grid"] .app-custom-cell[data-label] {
+  grid-template-columns: 1fr;
+
+  // reset 2 column grid layout at md breakpoint
+  @media screen and (min-width: $pf-global--breakpoint--md) {
+    grid-template-columns: 1fr 1.5fr;
+  }
+
+  > * {
+    grid-column: auto;
+  }
+}
+
+.app-custom-cell {
+  // these styles will only affect the grid layout
+  grid-column: 1;
+  grid-row-gap: var(--pf-global--spacer--sm);
+  grid-row: 3;
+
+  .pf-c-table & {
+    // these styles will affect table layout
+    // background: blue;
+  }
+}
+

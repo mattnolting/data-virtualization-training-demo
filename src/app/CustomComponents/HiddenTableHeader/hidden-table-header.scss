@@ -1,0 +1,5 @@
+@import '@app/pf-core.scss';
+
+.app-c-hidden-table-text {
+  @include pf-u-screen-reader;
+}

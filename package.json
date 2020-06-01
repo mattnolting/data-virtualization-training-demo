@@ -81,12 +81,14 @@
     "webpack-merge": "^4.1.4"
   },
   "dependencies": {
-    "@patternfly/react-core": "^4.6.1",
+    "@patternfly/react-core": "3.158.2",
     "@patternfly/react-icons": "^4.1.1",
     "@patternfly/react-styles": "^4.1.1",
     "@patternfly/react-table": "^2.28.47",
+    "build": "^0.1.4",
     "express": "^4.13.4",
     "react-router-dom": "^5.0.1",
-    "react-router-last-location": "^2.0.1"
+    "react-router-last-location": "^2.0.1",
+    "run": "^1.4.0"
   }
 }

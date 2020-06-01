@@ -1,0 +1,40 @@
+// Here's how to create your own responsive classes
+// First, import sass colors, functions, mixins and variables
+@import '@app/pf-core.scss';
+
+// Second, build a sass map of the breakpoints you wish to support
+
+// using all PF breakpoints
+$app-new-component--breakpoint-map: build-breakpoint-map();
+
+// using specific breakpoints
+// $app-new-component--breakpoint-map: build-breakpoint-map('base', 'sm', 'lg', 'xl');
+
+.app-awesome-component {
+  --app-awesome-component--PaddingTop: var(--pf-global--spacer--xl);
+  --app-awesome-component--PaddingRight: var(--pf-global--spacer--xl);
+  --app-awesome-component--PaddingBottom: var(--pf-global--spacer--xl);
+  --app-awesome-component--PaddingLeft: var(--pf-global--spacer--xl);
+  --app-awesome-component--BackgroundColor: var(--pf-global--BackgroundColor--dark-200);
+
+  padding: var(--app-awesome-component--PaddingTop) var(--app-awesome-component--PaddingRight) var(--app-awesome-component--PaddingBottom) var(--app-awesome-component--PaddingLeft);
+  background-color: var(--app-awesome-component--BackgroundColor);
+}
+
+.app-awesome-component {
+  @each $breakpoint, $breakpoint-value in $app-new-component--breakpoint-map {
+    $breakpoint-name: if($breakpoint != "base", -on-#{$breakpoint}, "");
+
+    // @debug $breakpoint;
+
+    @include pf-apply-breakpoint($breakpoint, $app-new-component--breakpoint-map) {
+      &.app-m-fancy#{$breakpoint-name} {
+        --app-awesome-component--BackgroundColor: green;
+      }
+
+      &.app-m-bland#{$breakpoint-name} {
+        --app-awesome-component--BackgroundColor: lightgreen;
+      }
+    }
+  }
+}

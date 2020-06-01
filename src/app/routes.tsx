@@ -9,6 +9,8 @@ import { NotFound } from '@app/NotFound/NotFound';
 import { useDocumentTitle } from '@app/utils/useDocumentTitle';
 import { LastLocationProvider, useLastLocation } from 'react-router-last-location';
 import { Test } from './DataComponents/Test';
+import { ToolbarDemo } from '@app/ToolbarDemo/ToolbarDemo';
+import { ThemeDemo } from '@app/ThemeDemo/ThemeDemo';
 import { Sample } from './DataComponents/Sample';
 import { Foo } from './DataComponents/Foo';
 
@@ -67,6 +69,22 @@ const routes: IAppRoute[] = [
     label: 'Data',
     path: '/data',
     title: 'Data'
+  },
+  {
+    component: ToolbarDemo,
+    exact: true,
+    isAsync: true,
+    label: 'ToolbarDemo',
+    path: '/toolbar-demo',
+    title: 'Toolbar demo'
+  },
+  {
+    component: ThemeDemo,
+    exact: true,
+    isAsync: true,
+    label: 'ThemeDemo',
+    path: '/theme-demo',
+    title: 'Theme demo'
   },
   {
     component: Test,

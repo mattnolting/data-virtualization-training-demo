@@ -1,0 +1,76 @@
+@import '@app/pf-core.scss';
+$app-c-dynamic-list--breakpoint-map: build-breakpoint-map();
+
+.app-c-dynamic-list {
+  --app-c-dynamic-list--Padding: var(--pf-global--spacer--xs) var(--pf-global--spacer--md);
+  --app-c-dynamic-list--BackgroundColor: #FDF7E7;
+  --app-c-dynamic-list--BorderColor: var(--pf-global--palette--gold-500);
+  --app-c-dynamic-list--BorderWeight: var(--pf-global--BorderWidth--sm);
+  --app-c-dynamic-list--BorderRadius: var(--pf-global--BorderRadius--md);
+
+  // Label
+  --app-c-dynamic-list__label--MarginRight: var(--pf-global--spacer--xs);
+  --app-c-dynamic-list__label--Color: var(--pf-global--palette--gold-700);
+  --app-c-dynamic-list__label--FontSize: var(--pf-global--FontSize--sm);
+
+  // Item
+  --app-c-dynamic-list__item--MarginRight: var(--pf-global--spacer--sm);
+  --app-c-dynamic-list__item--Color: var(--pf-global--palette--gold-700);
+  --app-c-dynamic-list__item--FontSize: var(--pf-global--FontSize--sm);
+
+  // coming soon, margin trim will allow items whose margins collide with their parent container edges to collapse or 'trim' the item margins
+  // margin-trim: all;
+
+  flex-wrap: wrap;
+}
+
+.app-c-dynamic-list,
+.app-c-dynamic-list__list {
+  display: inline-flex;
+}
+
+.app-c-dynamic-list {
+  border-radius: var(--app-c-dynamic-list--BorderRadius);
+  background-color: var(--app-c-dynamic-list--BackgroundColor);
+  border: var(--app-c-dynamic-list--BorderWeight) solid var(--app-c-dynamic-list--BorderColor);
+  padding: var(--app-c-dynamic-list--Padding);
+  justify-self: start;
+}
+
+.app-c-dynamic-list__label {
+  margin-right: var(--app-c-dynamic-list__label--MarginRight);
+  color: var(--app-c-dynamic-list__label--Color);
+  font-size: var(--app-c-dynamic-list__label--FontSize);
+
+  &::after {
+    content: ':';
+  }
+}
+
+.app-c-dynamic-list__item {
+  margin-right: var(--app-c-dynamic-list__item--MarginRight);
+  color: var(--app-c-dynamic-list__item--Color);
+  font-size: var(--app-c-dynamic-list__item--FontSize);
+  white-space: nowrap;
+
+  &:last-child {
+    --app-c-dynamic-list__item--MarginRight: 0;
+  }
+
+  &:not(:last-child):after {
+    content: '/';
+    margin-left: var(--pf-global--spacer--sm);
+  }
+}
+
+@each $breakpoint, $breakpoint-value in $app-c-dynamic-list--breakpoint-map {
+  $breakpoint-name: if($breakpoint != "base", -on-#{$breakpoint}, "");
+
+  @include pf-apply-breakpoint($breakpoint, $app-c-dynamic-list--breakpoint-map) {
+    .app-c-dynamic-list.app-m-inline#{$breakpoint-name} {
+      flex-direction: row;
+      align-items: center;
+      justify-self: start;
+    }
+  }
+}
